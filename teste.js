@@ -1,37 +1,45 @@
-const body =  {
-  pricing: [
-      {
-          type: "buy",
-          maximum: 41600,
-          maximum_fipe_margin: 0.91,
-          minimum: 33280,
-          minimum_fipe_margin: 0.72
-      },
-      {
-        type: "trade",
-        maximum: 49432,
-        maximum_fipe_margin: 0.91,
-        minimum: 36067,
-        minimum_fipe_margin: 0.72
-    }
-  ],
+const model = {
+  evaluation: {
+    bonuses: [
+        {
+        "type": "LOW_KM",
+        "description": "km baixa",
+        "price": 250,
+        "typeDescription": "Km baixa"
+        }, 
+        {
+          "type": "LOW_KM",
+          "description": "km baixa",
+          "price": 654,
+          "typeDescription": "Km baixa"
+          } 
+      ],
+      "penalties": [
+        {
+          "type": "BREAKDOWN",
+          "description": "teste",
+          "price": 200,
+          "typeDescription": "Avaria técnica"
+        },
+        {
+          "type": "BREAKDOWN",
+          "description": "teste",
+          "price": 200,
+          "typeDescription": "Avaria técnica"
+        }
+
+      ],
+  }
 }
 
-function contractIsExist(contractBuy, contractTrade) {
-  return contractBuy === '' && contractTrade === '' ;
-}
 
-function getMaxAmountBonus(contractTrade, contractBuy) {
-  return contractTrade.maximum - contractBuy.maximum;
-}
 
-const contractBuy = body.pricing ? body.pricing.find((price) => price.type === 'buy') : ''
-const contractTrade = body.pricing ? body.pricing.find((price) => price.type === 'trade') : ''
-const amountBonus = contractIsExist(contractBuy, contractTrade) ? getMaxAmountBonus(contractTrade, contractBuy) : 0
+    let totalBonuses = 0;
+    model.evaluation.bonuses.forEach(element => {
+      totalBonuses = totalBonuses + element.price;
+    });
 
-//console.log(contractTrade.maximum)
-//console.log(contractBuy.maximum)
+  console.log(totalBonuses)
 
-console.log(amountBonus)
 
 
